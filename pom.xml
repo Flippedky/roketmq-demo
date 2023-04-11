@@ -40,6 +40,8 @@
         <transmittable-thread-local.version>2.12.2</transmittable-thread-local.version>
         <commons-net.version>3.8.0</commons-net.version>
         <jsch.version>0.1.55</jsch.version>
+        <!-- 监控相关 -->
+        <skywalking.version>8.12.0</skywalking.version>
     </properties>
 
     <!--
@@ -133,6 +135,12 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-trace</artifactId>
+                <version>${skywalking.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

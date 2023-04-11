@@ -15,6 +15,10 @@
 	<description>module-rocketmq-producer</description>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.luckyi</groupId>
+			<artifactId>rocketmq-common</artifactId>
+		</dependency>
 
 		<!-- Web 相关 -->
 		<dependency>
