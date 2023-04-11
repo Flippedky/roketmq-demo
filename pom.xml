@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.luckyi</groupId>
+    <artifactId>roketmq-demo</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>module-rocketmq-producer</module>
+        <module>module-rocketmq-consumer</module>
+        <module>rocketmq-common</module>
+    </modules>
+
+    <properties>
+        <revision>1.0-SNAPSHOT</revision>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.boot.version>2.2.4.RELEASE</spring.boot.version>
+        <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
+        <spring.cloud.alibaba.version>2.2.0.RELEASE</spring.cloud.alibaba.version>
+        <!-- Web 相关 -->
+        <knife4j.version>3.0.3</knife4j.version>
+        <swagger-annotations.version>1.6.6</swagger-annotations.version>
+        <servlet.versoin>2.5</servlet.versoin>
+        <!-- 工具类相关 -->
+        <jasypt-spring-boot-starter.version>3.0.4</jasypt-spring-boot-starter.version>
+        <lombok.version>1.18.20</lombok.version>
+        <mapstruct.version>1.4.1.Final</mapstruct.version>
+        <hutool.version>5.6.1</hutool.version>
+        <easyexcel.verion>2.2.7</easyexcel.verion>
+        <velocity.version>2.2</velocity.version>
+        <screw.version>1.0.5</screw.version>
+        <fastjson.version>2.0.5</fastjson.version>
+        <guava.version>30.1.1-jre</guava.version>
+        <guice.version>5.1.0</guice.version>
+        <transmittable-thread-local.version>2.12.2</transmittable-thread-local.version>
+        <commons-net.version>3.8.0</commons-net.version>
+        <jsch.version>0.1.55</jsch.version>
+    </properties>
+
+    <!--
+        引入 Spring Boot、Spring Cloud、Spring Cloud Alibaba 三者 BOM 文件，进行依赖版本的管理，防止不兼容。
+        在 https://dwz.cn/mcLIfNKt 文章中，Spring Cloud Alibaba 开发团队推荐了三者的依赖关系
+     -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.luckyi</groupId>
+                <artifactId>rocketmq-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId> <!-- 解决 ThreadLocal 父子线程的传值问题 -->
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>mapstruct</artifactId>
+                        <groupId>org.mapstruct</groupId> <!-- 避免冲突 -->
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>guava</artifactId>
+                        <groupId>com.google.guava</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>swagger-annotations</artifactId>
+                        <groupId>io.swagger</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

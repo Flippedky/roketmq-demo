@@ -1,0 +1,12 @@
+server:
+  port: 8181
+
+spring:
+  application:
+    name: base-consumer
+
+
+rocketmq:
+  name-server: 110.40.198.126:9876
+  producer:
+    group: base-producer-group1
