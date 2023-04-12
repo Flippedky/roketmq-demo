@@ -11,9 +11,11 @@ spring:
       destination: springCloudBus # 目标消息队列，默认为 springCloudBus
     # Spring Cloud Stream 配置项，对应 BindingServiceProperties 类
     stream:
+      function:
+        definition: subscribeConsumer
       # Binding 配置项，对应 BindingProperties Map
       bindings:
-        consumer-input:
+        send-in-0:
           destination: BaseTopic1 # 目的地。这里使用 RocketMQ Topic
           content-type: application/json # 内容格式。这里使用 JSON
           group: base-consumer-group1 # 消费者分组
@@ -22,9 +24,10 @@ spring:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
           name-server: 110.40.198.126:9876 # RocketMQ Namesrv 地址
+          group: base-group
         # RocketMQ 自定义 Binding 配置项，对应 RocketMQBindingProperties Map
         bindings:
-          consumer-input:
+          send-in-0:
             # RocketMQ Consumer 配置项，对应 RocketMQConsumerProperties 类
             consumer:
               enabled: true # 是否开启消费，默认为 true

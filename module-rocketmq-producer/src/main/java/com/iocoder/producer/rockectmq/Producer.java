@@ -2,24 +2,35 @@ package com.iocoder.producer.rockectmq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.TransactionSendResult;
+import org.apache.rocketmq.common.message.MessageConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
 public class Producer {
 
-    @Autowired
-    StreamBridge streamBridge;
+    @Resource
+    private StreamBridge streamBridge;
 
     public void sendMessage(String topic, String body){
-        streamBridge.send(topic,body);
-        log.info("发送消息成功！！！");
+        String payload = "消息体producer发送到tag1";
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(MessageConst.PROPERTY_TAGS, "tag1");
+        MessageHeaders messageHeaders = new MessageHeaders(headers);
+        Message<String> message = MessageBuilder.withPayload(body).build();
+        // Message<String> message = MessageBuilder.withPayload(body).copyHeadersIfAbsent(messageHeaders).build();
+        boolean send = streamBridge.send(topic, message);
+        log.info(send + "发送消息成功！！！");
     }
 
     public void sendMessageInTransaction(String topic, String body){

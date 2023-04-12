@@ -13,7 +13,7 @@ class ModuleRocketmqProducerApplicationTests {
 
 	@Test
 	void sendMessage() {
-		producer.sendMessage("BaseTopic1","hello rocketmq spring boot message!");
+		producer.sendMessage("send-out-0","hello rocketmq spring boot message!");
 	}
 
 }

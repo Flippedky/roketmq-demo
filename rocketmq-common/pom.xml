@@ -16,11 +16,6 @@
     <url>https://github.com/YunaiV/ruoyi-vue-pro</url>
 
     <dependencies>
-        <dependency>
-            <groupId>com.luckyi</groupId>
-            <artifactId>rocketmq-common</artifactId>
-        </dependency>
-
         <!-- Spring 核心 -->
         <dependency>
             <groupId>org.springframework</groupId>
