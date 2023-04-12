@@ -6,6 +6,16 @@ spring:
     name: base-consumer
 
 
+  cloud:
+    bus:
+      enabled: true # 是否开启，默认为 true
+      destination: springCloudBus # 目标消息队列，默认为 springCloudBus
+    stream:
+      rocketmq:
+        # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
+        binder:
+          name-server: 110.40.198.126:9876 # RocketMQ Namesrv 地址
+
 rocketmq:
   name-server: 110.40.198.126:9876
   producer:
