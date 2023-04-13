@@ -8,30 +8,24 @@ spring:
   cloud:
     bus:
       enabled: true # 是否开启，默认为 true
+      id: bus:0
       destination: springCloudBus # 目标消息队列，默认为 springCloudBus
     stream:
-      function:
-        definition: subscribeConsumer
       default-binder: rocketmq
       # Binding 配置项，对应 BindingProperties Map
       bindings:
-        send-out-0:
+        # 配置生产者 bindingName 发送消息信道 output
+        send-out-0: # 命名规则 输出 <functionName> + -out- + <index> 与StreamBridge.send 中的bindingName对应，用于指定生产者发送消息到指定Topic
           destination: BaseTopic1 # 目的地。这里使用 RocketMQ Topic
           content-type: application/json # 内容格式。这里使用 JSON
-        send-in-0:
-          destination: BaseTopic1 # 目的地。这里使用 RocketMQ Topic
-          content-type: application/json # 内容格式。这里使用 JSON
-          group: base-group # 消费者分组
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
           name-server: 110.40.198.126:9876 # RocketMQ Namesrv 地址
-          group: base-group
-        send-out-0:
-          # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
-          producer:
-            group: base-group # 生产者分组
-            sync: true # 是否同步发送消息，默认为 false 异步。
+        default: # 默认 bindings 全局配置
+          producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
+            group: system_producer_group # 生产者分组
+            send-type: SYNC # 发送模式，SYNC 同步
 
 rocketmq:
   name-server: 110.40.198.126:9876

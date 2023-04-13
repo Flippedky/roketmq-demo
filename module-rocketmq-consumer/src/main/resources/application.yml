@@ -8,30 +8,42 @@ spring:
   cloud:
     bus:
       enabled: true # 是否开启，默认为 true
+      id: ${spring.application.name}:${server.port} # 编号，Spring Cloud Alibaba 建议使用“应用:端口”的格式
       destination: springCloudBus # 目标消息队列，默认为 springCloudBus
     # Spring Cloud Stream 配置项，对应 BindingServiceProperties 类
     stream:
+      # 声明消费者类名(实现 java.util.function.Consumer 接口) 或者 消费者类中的多个方法bean (返回 java.util.function.[Supplier/Function/Consumer])
       function:
-        definition: subscribeConsumer
+        # 多个消费者类名/方法名 用";"隔开
+        definition: subscribeConsumer;acceptMessage
       # Binding 配置项，对应 BindingProperties Map
       bindings:
-        send-in-0:
+        # 配置消费者 bindingName 接收消息信道 input
+        subscribeConsumer-in-0: # 命名规则 输入 <functionName> + -in- + <index> functionName需要对应 消费者类名、消费方法名；index 它是input和output的序列，一个方法默认为0
           destination: BaseTopic1 # 目的地。这里使用 RocketMQ Topic
           content-type: application/json # 内容格式。这里使用 JSON
           group: base-consumer-group1 # 消费者分组
+        acceptMessage-in-0:
+          destination: BaseTopic1 # 目的地。这里使用 RocketMQ Topic
+          content-type: application/json # 内容格式。这里使用 JSON
+          group: base-consumer-group2 # 消费者分组
       # Spring Cloud Stream RocketMQ 配置项
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
         binder:
           name-server: 110.40.198.126:9876 # RocketMQ Namesrv 地址
-          group: base-group
         # RocketMQ 自定义 Binding 配置项，对应 RocketMQBindingProperties Map
         bindings:
-          send-in-0:
+          #
+          subscribeConsumer-in-0:
             # RocketMQ Consumer 配置项，对应 RocketMQConsumerProperties 类
             consumer:
               enabled: true # 是否开启消费，默认为 true
               broadcasting: false # 是否使用广播消费，默认为 false 使用集群消费
+          default: # 默认 bindings 全局配置
+            consumer: # RocketMQ Consumer 配置项，对应 RocketMQConsumerProperties 类
+              enabled: true # 生产者分组
+              send-broadcasting: false # 发送模式，SYNC 同步
 
 rocketmq:
   name-server: 110.40.198.126:9876

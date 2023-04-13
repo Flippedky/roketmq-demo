@@ -34,6 +34,13 @@ public abstract class AbstractBusProducer {
         return applicationName + ":**";
     }
 
+    /**
+     * @return 广播给所有服务的实例
+     */
+    protected String allDestinationService() {
+        return "**";
+    }
+
     protected String getBusId() {
         return serviceMatcher.getBusId();
     }

@@ -29,7 +29,7 @@ public class Producer {
         MessageHeaders messageHeaders = new MessageHeaders(headers);
         Message<String> message = MessageBuilder.withPayload(body).build();
         // Message<String> message = MessageBuilder.withPayload(body).copyHeadersIfAbsent(messageHeaders).build();
-        boolean send = streamBridge.send(topic, message);
+        boolean send = streamBridge.send(topic, body);
         log.info(send + "发送消息成功！！！");
     }
 

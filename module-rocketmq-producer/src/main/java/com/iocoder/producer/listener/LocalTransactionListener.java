@@ -5,13 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.producer.LocalTransactionState;
 import org.apache.rocketmq.client.producer.TransactionListener;
+import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.common.message.MessageExt;
 
 @Slf4j
 public class LocalTransactionListener implements TransactionListener {
 
     @Override
-    public LocalTransactionState executeLocalTransaction(org.apache.rocketmq.common.message.Message message, Object arg) {
+    public LocalTransactionState executeLocalTransaction(Message message, Object arg) {
         //获得业务参数中的数据
         String destination = (String) arg;
         // //使⽤RocketMQUtil将spring的message转换成rocketmq的message
