@@ -6,10 +6,6 @@ spring:
     name: base-producer
 
   cloud:
-    bus:
-      enabled: true # 是否开启，默认为 true
-      id: bus:0
-      destination: springCloudBus # 目标消息队列，默认为 springCloudBus
     stream:
       default-binder: rocketmq
       # Binding 配置项，对应 BindingProperties Map
@@ -26,6 +22,11 @@ spring:
           producer: # RocketMQ Producer 配置项，对应 RocketMQProducerProperties 类
             group: system_producer_group # 生产者分组
             send-type: SYNC # 发送模式，SYNC 同步
+
+    bus:
+      enabled: true # 是否开启，默认为 true
+      id: ${spring.application.name}:${server.port} # 编号，Spring Cloud Alibaba 建议使用“应用:端口”的格式
+      destination: springCloudBus # 目标消息队列，默认为 springCloudBus
 
 rocketmq:
   name-server: 110.40.198.126:9876

@@ -4,6 +4,7 @@ import com.alibaba.cloud.stream.binder.rocketmq.convert.RocketMQMessageConverter
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.*;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author 芋道源码
  */
 @AutoConfiguration
+@RemoteApplicationEventScan(basePackages = "cn.iocoder.yudao.framework.mq.core.bus.event")
 public class YudaoMQAutoConfiguration {
 
     /**

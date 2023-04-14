@@ -17,7 +17,7 @@ public class EventProducer extends AbstractBusProducer {
      * 发布文章事件
      */
     public void publishArticle(){
-        publishEvent(new PublishArticleEvent("小片片说大片",this,getBusId(),allDestinationService()));
+        publishEvent(new PublishArticleEvent("小片片说大片",this,getBusId(),selfDestinationService()));
         log.info("[PublishArticleEvent]事件发送成功！！！");
     }
 
@@ -25,7 +25,7 @@ public class EventProducer extends AbstractBusProducer {
      * 用户注册事件
      */
     public void userRegister(){
-        publishEvent(new UserRegisterEvent("高启强",this,getBusId(),allDestinationService()));
+        publishEvent(new UserRegisterEvent("高启强",this,getBusId(),selfDestinationService()));
         log.info("[UserRegisterEvent]事件发送成功！！！");
     }
 
