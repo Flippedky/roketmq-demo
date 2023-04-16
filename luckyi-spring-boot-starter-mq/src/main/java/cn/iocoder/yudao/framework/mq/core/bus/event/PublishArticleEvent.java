@@ -2,12 +2,14 @@ package cn.iocoder.yudao.framework.mq.core.bus.event;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 
 /**
  * 公众号发布文章事件
  */
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class PublishArticleEvent extends RemoteApplicationEvent {
 

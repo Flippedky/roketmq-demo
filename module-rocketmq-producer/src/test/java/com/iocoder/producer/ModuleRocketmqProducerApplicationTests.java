@@ -25,7 +25,7 @@ class ModuleRocketmqProducerApplicationTests {
 	@Test
 	void eventPush(){
 		eventProducer.publishArticle();
-		try { TimeUnit.SECONDS.sleep(2); } catch (InterruptedException e) { e.printStackTrace(); }
+
 		eventProducer.userRegister();
 	}
 }

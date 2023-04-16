@@ -10,9 +10,9 @@ spring:
     stream:
       default-binder: rocketmq
       # 声明消费者类名(实现 java.util.function.Consumer 接口) 或者 消费者类中的多个方法bean (返回 java.util.function.[Supplier/Function/Consumer])
-      function:
-        # 多个消费者类名/方法名 用";"隔开
-        definition: subscribeConsumer;acceptMessage
+#      function:
+#        # 多个消费者类名/方法名 用";"隔开
+#        definition: subscribeConsumer;acceptMessage
       # Binding 配置项，对应 BindingProperties Map
       bindings:
         # 配置消费者 bindingName 接收消息信道 input
@@ -24,6 +24,11 @@ spring:
           destination: BaseTopic1 # 目的地。这里使用 RocketMQ Topic
           content-type: application/json # 内容格式。这里使用 JSON
           group: base-consumer-group2 # 消费者分组
+#        # 配置Spring Cloud Bus RocketMQ 消费者
+#        springCloudBus-in:
+#          destination: springCloudBus # 目的地。这里使用 RocketMQ Topic
+#          content-type: application/json # 内容格式。这里使用 JSON
+#          group: rocketmq-bus-group # 消费者分组
       # Spring Cloud Stream RocketMQ 配置项
       rocketmq:
         # RocketMQ Binder 配置项，对应 RocketMQBinderConfigurationProperties 类
@@ -42,18 +47,29 @@ spring:
               enabled: true # 是否开启消费，默认为 true
               broadcasting: false # 是否使用广播消费，默认为 false 使用集群消费
 
+    # 其中，`CustomEventPublisher` 使用 `RemoteApplicationEventPublisher` 发布 `CustomEvent` 事件。`CustomEvent` 事件的构造方法需要传入事件的消息、事件的源服务 ID 和事件的目标服务 ID。这里目标服务 ID 设置为 `"all"`，表示该事件将发送给所有订阅 `springCloudBus` 主题的消费者。
+    #
+    # 需要注意的是，如果使用 `spring.cloud.stream.function` 配置，需要将 `spring-cloud-starter-bus` 的版本升级至 `3.1.0` 及以上版本，
+    # 否则会出现连接不到 `springCloudBus` 主题的问题。升级后，也需要修改 `application.yml` 文件中的配置，
+    # 将 `springCloudBus-in` 绑定到 `spring.cloud.stream.function.definition` 指定的函数。
     bus:
       enabled: true # 是否开启，默认为 true
-      id: ${spring.application.name}:${server.port} # 编号，Spring Cloud Alibaba 建议使用“应用:端口”的格式
+      id: base-consumer:8088 # 编号，Spring Cloud Alibaba 建议使用“应用:端口”的格式
       destination: springCloudBus # 目标消息队列，默认为 springCloudBus
+#      rocketmq:
+#        binder:
+#          destination: springCloudBus
+#        name-server: 110.40.198.126:9876
+#        group: rocketmq-bus-group
+#        topic: springCloudBus
 
-# Actuator 监控端点的配置项
-management:
-  endpoints:
-    web:
-      base-path: /actuator # Actuator 提供的 API 接口的根目录。默认为 /actuator
-      exposure:
-        include: '*' # 需要开放的端点。默认值只打开 health 和 info 两个端点。通过设置 * ，可以开放所有端点。
+## Actuator 监控端点的配置项
+#management:
+#  endpoints:
+#    web:
+#      base-path: /actuator # Actuator 提供的 API 接口的根目录。默认为 /actuator
+#      exposure:
+#        include: '*' # 需要开放的端点。默认值只打开 health 和 info 两个端点。通过设置 * ，可以开放所有端点。
 
 rocketmq:
   name-server: 110.40.198.126:9876
