@@ -1,6 +1,6 @@
-package com.iocoder.producer.rockectmq;
+package com.luckyi.producer.rockectmq;
 
-import com.iocoder.producer.event.EventProducer;
+import com.luckyi.producer.event.EventProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

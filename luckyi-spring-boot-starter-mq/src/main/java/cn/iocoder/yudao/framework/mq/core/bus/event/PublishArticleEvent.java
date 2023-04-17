@@ -9,8 +9,8 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
  * 公众号发布文章事件
  */
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class PublishArticleEvent extends RemoteApplicationEvent {
 
     private String name;

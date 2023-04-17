@@ -1,4 +1,4 @@
-package com.iocoder.producer.event;
+package com.luckyi.producer.event;
 
 import cn.iocoder.yudao.framework.mq.core.bus.AbstractBusProducer;
 import cn.iocoder.yudao.framework.mq.core.bus.event.PublishArticleEvent;
@@ -17,7 +17,7 @@ public class EventProducer extends AbstractBusProducer {
      * 发布文章事件
      */
     public void publishArticle(){
-        publishEvent(new PublishArticleEvent("小片片说大片",this,getBusId(),allDestinationService()));
+        publishEvent(new PublishArticleEvent("小片片说大片",this,getBusId(),selfDestinationService()));
         log.info("[PublishArticleEvent]事件发送成功！！！");
     }
 

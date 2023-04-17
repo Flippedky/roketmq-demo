@@ -1,12 +1,10 @@
-package com.iocoder.producer;
+package com.luckyi.producer;
 
-import com.iocoder.producer.event.EventProducer;
-import com.iocoder.producer.rockectmq.Producer;
+import com.luckyi.producer.event.EventProducer;
+import com.luckyi.producer.rockectmq.Producer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class ModuleRocketmqProducerApplicationTests {
@@ -25,7 +23,6 @@ class ModuleRocketmqProducerApplicationTests {
 	@Test
 	void eventPush(){
 		eventProducer.publishArticle();
-
-		eventProducer.userRegister();
+		// eventProducer.userRegister();
 	}
 }

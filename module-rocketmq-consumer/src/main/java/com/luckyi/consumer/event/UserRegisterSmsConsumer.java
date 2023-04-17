@@ -1,4 +1,4 @@
-package com.iocoder.consumer.event;
+package com.luckyi.consumer.event;
 
 import cn.iocoder.yudao.framework.mq.core.bus.event.UserRegisterEvent;
 import lombok.extern.slf4j.Slf4j;

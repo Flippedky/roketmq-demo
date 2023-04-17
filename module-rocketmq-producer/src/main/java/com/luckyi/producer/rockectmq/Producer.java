@@ -1,9 +1,7 @@
-package com.iocoder.producer.rockectmq;
+package com.luckyi.producer.rockectmq;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.client.producer.TransactionSendResult;
 import org.apache.rocketmq.common.message.MessageConst;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;

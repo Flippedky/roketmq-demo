@@ -1,4 +1,4 @@
-package com.iocoder.consumer.rockectmq;
+package com.luckyi.consumer.rockectmq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +13,10 @@ import java.util.function.Consumer;
  * stream.bindings 中添加指定消费者信道 bindingName（消费者类/方法名 + -in- + 序列号 一个方法默认为0）例:subscribeConsumer-in-0 <br>
  * 消费者信道（bindingName）中配置的 RocketMq Broker中的 topic（stream.bindings."bindingName".destination）有消息后，对应的消费者信道(bindingName 的消费者类/方法)会把消息拉过来，然后进行消费，而他之所以能知道要去消费哪一个消息也就是因为这里的绑定好的原因。
  * 所以如果你一个类中声明了多个的消费方法，只需要再function.definition这个地方声明出你方法的名称，并且再代码里面使用@Bean的方式去声明出对应的方法即可
+ * <p>
+ * 使用 spring-cloud-starter-bus-rocketmq，需要注意该组件的自动配置可能与 spring.cloud.stream.function.definition 配置冲突，
+ * 导致 spring-cloud-bus 订阅失败。解决办法是通过 stream.function.definition 配置 spring-cloud-stream 的函数定义
+ * 具体可看 bus 默认属性配置类 {@link org.springframework.cloud.bus.BusEnvironmentPostProcessor}
  */
 @Component
 @Slf4j
